@@ -29,14 +29,13 @@ else
     echo "CKAN version: ${CKAN_TAG#ckan-}"
 fi
 
-pip install setuptools==40.0
 
 # install the recommended version of setuptools
-# if [ -f requirement-setuptools.txt ]
-#then
-#    echo "Updating setuptools..."
-#    pip install -r requirement-setuptools.txt
-#fi
+if [ -f requirement-setuptools.txt ]
+then
+    echo "Updating setuptools..."
+    pip install -r requirement-setuptools.txt
+fi
 
 python setup.py develop
 
