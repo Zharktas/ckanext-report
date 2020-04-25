@@ -60,7 +60,14 @@ echo "Setting up Solr..."
 # on Travis single-core still.
 # see https://github.com/ckan/ckan/issues/2972
 sed -i -e 's/solr_url.*/solr_url = http:\/\/127.0.0.1:8983\/solr/' ckan/test-core.ini
-printf "NO_START=0\nJETTY_HOST=127.0.0.1\nJETTY_PORT=8983\nJAVA_HOME=$JAVA_HOME" | sudo tee /etc/default/jetty9
+
+# Fix solr-jetty starting issues https://stackoverflow.com/a/56007895
+sudo mkdir /etc/systemd/system/jetty9.service.d
+printf "[Service]\nReadWritePaths=/var/lib/solr" | sudo tee /etc/systemd/system/jetty9.service.d/solr.conf
+sed '18,22d' /etc/solr/solr-jetty.xml > /etc/solr/solr-jetty.xml
+sudo systemctl daemon-reload
+
+printf "NO_START=0\nJETTY_HOST=127.0.0.1\nJETTY_ARGS=\"jetty.http.port=8983\"\nJAVA_HOME=$JAVA_HOME" | sudo tee /etc/default/jetty9
 sudo cp ckan/ckan/config/solr/schema.xml /etc/solr/conf/schema.xml
 sudo service jetty9 restart
 
