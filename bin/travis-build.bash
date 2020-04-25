@@ -64,7 +64,7 @@ sed -i -e 's/solr_url.*/solr_url = http:\/\/127.0.0.1:8983\/solr/' ckan/test-cor
 # Fix solr-jetty starting issues https://stackoverflow.com/a/56007895
 sudo mkdir /etc/systemd/system/jetty9.service.d
 printf "[Service]\nReadWritePaths=/var/lib/solr" | sudo tee /etc/systemd/system/jetty9.service.d/solr.conf
-sudo sed '18,22d' /etc/solr/solr-jetty.xml | sudo tee /etc/solr/solr-jetty.xml
+#sudo sed '18,22d' /etc/solr/solr-jetty.xml | sudo tee /etc/solr/solr-jetty.xml
 sudo systemctl daemon-reload
 
 printf "NO_START=0\nJETTY_HOST=127.0.0.1\nJETTY_ARGS=\"jetty.http.port=8983\"\nJAVA_HOME=$JAVA_HOME" | sudo tee /etc/default/jetty9
