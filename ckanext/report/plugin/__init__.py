@@ -7,8 +7,8 @@ import ckanext.report.logic.auth.get as auth_get
 import ckanext.report.logic.auth.update as auth_update
 
 try:
-    toolkit.requires_ckan_version("2.9")
-except toolkit.CkanVersionException:
+    p.toolkit.requires_ckan_version("2.9")
+except p.toolkit.CkanVersionException:
     from ckanext.report.plugin.pylons_plugin import MixinPlugin
 else:
     from ckanext.report.plugin.flask_plugin import MixinPlugin
