@@ -4,7 +4,8 @@ These functions are for use by other extensions for their reports.
 
 import ckan.plugins as p
 from past.builtins import basestring
-
+import datetime
+from collections import OrderedDict
 
 def all_organizations(include_none=False):
     '''Yields all the organization names, and also None if requested. Useful

@@ -1,13 +1,10 @@
 from builtins import str, int
 
-import datetime
-
 from ckan.lib.helpers import json
 import ckan.plugins.toolkit as t
 import ckanext.report.helpers as helpers
 from ckanext.report.report_registry import Report
 from ckan.lib.render import TemplateNotFound
-from collections import OrderedDict
 from ckanext.report.lib import make_csv_from_dicts, ensure_data_is_dicts, anonymise_user_names
 
 log = __import__('logging').getLogger(__name__)
