@@ -1,7 +1,7 @@
 from builtins import object
 import pytest
 
-from ckan.tests import helpers, factories
+from ckan.tests import factories
 
 import ckanext.report.model as report_model
 
@@ -19,14 +19,14 @@ class TestReportPlugin(object):
         u"""Test report routes"""
         res = app.get(u'/report')
 
-        assert helpers.body_contains(res, u"Reports")
+        assert u"Reports" in res.body
 
     def test_tagless_report_listed(self, app):
         u"""Test tagless report is listed on report page"""
         res = app.get(u'/report')
 
-        assert helpers.body_contains(res, u'Tagless datasets')
-        assert helpers.body_contains(res, u'href="/report/tagless-datasets"')
+        assert u'Tagless datasets' in res.body
+        assert u'href="/report/tagless-datasets"' in res.body
 
     def test_tagless_report(self, app):
         u"""Test tagless report generation"""
@@ -34,5 +34,5 @@ class TestReportPlugin(object):
 
         res = app.get(u'/report/tagless-datasets')
 
-        assert helpers.body_contains(res, u"Datasets which have no tags.")
-        assert helpers.body_contains(res, 'href="/dataset/' + dataset['name'] + '"')
+        assert u"Datasets which have no tags." in res.body
+        assert 'href="/dataset/' + dataset['name'] + '"' in res.body
