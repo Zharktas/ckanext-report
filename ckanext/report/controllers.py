@@ -1,4 +1,4 @@
-from builtins import str, int
+from builtins import str
 
 from ckan.lib.helpers import json
 import ckan.plugins.toolkit as t
