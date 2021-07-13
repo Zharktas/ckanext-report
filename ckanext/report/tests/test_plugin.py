@@ -1,4 +1,5 @@
 from builtins import object
+import six
 import pytest
 
 from ckan.tests import factories
@@ -18,21 +19,24 @@ class TestReportPlugin(object):
     def test_report_routes(self, app):
         u"""Test report routes"""
         res = app.get(u'/report')
+        body = six.ensure_text(res.body)
 
-        assert "Reports" in res.body
+        assert u"Reports" in body
 
     def test_tagless_report_listed(self, app):
         u"""Test tagless report is listed on report page"""
         res = app.get(u'/report')
+        body = six.ensure_text(res.body)
 
-        assert 'Tagless datasets' in res.body
-        assert 'href="/report/tagless-datasets"' in res.body
+        assert u'Tagless datasets' in body
+        assert u'href="/report/tagless-datasets"' in body
 
     def test_tagless_report(self, app):
         u"""Test tagless report generation"""
         dataset = factories.Dataset()
 
         res = app.get(u'/report/tagless-datasets')
+        body = six.ensure_text(res.body)
 
-        assert "Datasets which have no tags." in res.body
-        assert 'href="/dataset/' + dataset['name'] + '"' in res.body
+        assert u"Datasets which have no tags." in body
+        assert 'href="/dataset/' + dataset['name'] + '"' in body
